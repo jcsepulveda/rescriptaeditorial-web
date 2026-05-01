@@ -1,0 +1,395 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import logoImg from '../assets/logo-original.png';
+import { getCollection } from 'astro:content';
+
+const libros = await getCollection('libros');
+---
+
+<Layout title="Rescate de Obras Fundamentales">
+	<main>
+		<!-- Navegación Minimalista -->
+		<nav class="container">
+			<div class="logo">
+				<Image src={logoImg} alt="Rescripta Editores" class="logo-icon" />
+				<div class="brand-text">
+					<span class="brand-main">Rescripta</span>
+					<span class="brand-sub">Editorial</span>
+				</div>
+			</div>
+			<div class="nav-links">
+				<a href="#proposito">Propósito</a>
+				<a href="#catalogo">Catálogo</a>
+				<a href="#contacto">Contacto</a>
+			</div>
+		</nav>
+
+		<!-- Hero Section -->
+		<section class="hero container animate-fade-in">
+			<div class="hero-content">
+				<h1>Recuperación de obras de valor para la historia y la cultura de <span class="text-gradient">Chile</span>.</h1>
+				<p class="hero-subtitle">
+					Preservación del patrimonio bibliográfico nacional a través de ediciones digitales modernas que respetan la integridad de cada obra.
+				</p>
+				<div class="cta-group">
+					<a href="#proposito" class="btn btn-primary">Nuestra Misión</a>
+					<a href="#catalogo" class="btn btn-outline">Próximos Títulos</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- Propósito Section -->
+		<section id="proposito" class="container">
+			<div class="glass-card mission-grid">
+				<div class="mission-text">
+					<h2>Una labor de preservación</h2>
+					<p>
+						Nuestra vocación es el rescate. Nos dedicamos a recuperar obras de relevancia histórica y cultural que han quedado fuera de los circuitos comerciales tradicionales, asegurando su permanencia y accesibilidad para el lector contemporáneo.
+					</p>
+					<p>
+						Cada volumen es tratado con rigor editorial absoluto, enfocándonos en la fidelidad al texto original y en la creación de una experiencia de lectura digital moderna.
+					</p>
+				</div>
+				<div class="mission-focus">
+					<div class="focus-item">
+						<span class="focus-icon">🇨🇱</span>
+						<div>
+							<h3>Patrimonio Nacional</h3>
+							<p>Centramos nuestro esfuerzo en obras pilares de la identidad y la memoria de Chile.</p>
+						</div>
+					</div>
+					<div class="focus-item">
+						<span class="focus-icon">✦</span>
+						<div>
+							<h3>Rigor Editorial</h3>
+							<p>Respetamos la integridad de la obra original, trasladándola con rigor a estándares modernos que aseguran su vigencia y legibilidad en múltiples soportes, más allá del formato físico.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Próximamente (Catálogo Placeholder) -->
+		<section id="catalogo" class="container">
+			<div class="section-header">
+				<h2>En Desarrollo</h2>
+				<p>Próximos lanzamientos en preparación.</p>
+			</div>
+			<div class="catalog-grid">
+				{libros.map(libro => (
+					<div class="book-card">
+						<div class="book-cover">
+							{libro.data.status === 'proximamente' && <span class="status-badge">Próximamente</span>}
+						</div>
+						<div class="book-info">
+							<h3>{libro.data.title}</h3>
+							<p class="author">{libro.data.author}</p>
+							<p class="desc">{libro.data.description}</p>
+						</div>
+					</div>
+				))}
+				
+				{libros.length === 0 && (
+					<p class="muted">Preparando los primeros títulos del catálogo...</p>
+				)}
+			</div>
+		</section>
+
+		<!-- Footer -->
+		<footer class="container">
+			<div class="footer-content">
+				<div class="footer-brand">
+					<h3>Rescripta</h3>
+					<p>Santiago, Chile</p>
+				</div>
+				<div class="footer-legal">
+					<p>&copy; {new Date().getFullYear()} Rescripta Editores. Todos los derechos reservados.</p>
+				</div>
+			</div>
+		</footer>
+	</main>
+</Layout>
+
+<style>
+	main {
+		padding-bottom: 5rem;
+	}
+
+	nav {
+		height: 100px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.logo {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.brand-text {
+		display: flex;
+		flex-direction: column;
+		line-height: 1;
+		font-family: 'Cormorant Garamond', serif;
+		text-transform: uppercase;
+	}
+
+	.brand-main {
+		font-size: 1.8rem;
+		font-weight: 500;
+		letter-spacing: 0.15em;
+		color: var(--text-main);
+	}
+
+	.brand-sub {
+		font-size: 0.75rem;
+		font-weight: 400;
+		letter-spacing: 0.5em;
+		color: var(--accent);
+		margin-top: 0.2rem;
+		text-align: center;
+	}
+
+	.logo-icon {
+		height: 55px;
+		width: auto;
+		/* Paso 1: Invertir para tener logo blanco sobre fondo negro */
+		/* Paso 2: Aplicar filtros para llegar al bronce #c5a059 */
+		filter: invert(1) sepia(1) saturate(2) hue-rotate(350deg) brightness(0.8) contrast(1.2);
+		/* Paso 3: Hacer que el fondo negro de la imagen sea transparente */
+		mix-blend-mode: screen;
+	}
+
+	.nav-links {
+		display: flex;
+		gap: 2rem;
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		opacity: 0.8;
+	}
+
+	.nav-links a:hover {
+		color: var(--accent);
+	}
+
+	/* Hero */
+	.hero {
+		padding: 8rem 2rem;
+		text-align: center;
+	}
+
+	.hero-content {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.badge {
+		display: inline-block;
+		padding: 0.5rem 1rem;
+		background: var(--glass-bg);
+		border: 1px solid var(--accent);
+		color: var(--accent);
+		border-radius: 999px;
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		margin-bottom: 2rem;
+	}
+
+	h1 {
+		font-size: clamp(2.5rem, 8vw, 4.5rem);
+		line-height: 1.1;
+		margin-bottom: 2rem;
+	}
+
+	.hero-subtitle {
+		font-size: 1.25rem;
+		color: var(--text-muted);
+		max-width: 600px;
+		margin: 0 auto 3rem;
+	}
+
+	.cta-group {
+		display: flex;
+		gap: 1.5rem;
+		justify-content: center;
+	}
+
+	.btn {
+		padding: 1rem 2.5rem;
+		border-radius: 4px;
+		font-size: 0.9rem;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		transition: all 0.3s ease;
+	}
+
+	.btn-primary {
+		background-color: var(--accent);
+		color: var(--bg-color);
+	}
+
+	.btn-primary:hover {
+		background-color: var(--accent-light);
+		transform: translateY(-2px);
+	}
+
+	.btn-outline {
+		border: 1px solid var(--glass-border);
+		background: var(--glass-bg);
+	}
+
+	.btn-outline:hover {
+		border-color: var(--accent);
+		background: rgba(197, 160, 89, 0.05);
+	}
+
+	/* Mission Section */
+	.mission-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+		align-items: center;
+		margin: 4rem 0;
+	}
+
+	.mission-text h2 {
+		font-size: 2.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.mission-text p {
+		margin-bottom: 1.5rem;
+		color: var(--text-muted);
+	}
+
+	.focus-item {
+		display: flex;
+		gap: 1.5rem;
+		margin-bottom: 2rem;
+	}
+
+	.focus-icon {
+		font-size: 1.5rem;
+		color: var(--accent);
+	}
+
+	.focus-item h3 {
+		font-size: 1.2rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.focus-item p {
+		font-size: 0.9rem;
+		color: var(--text-muted);
+	}
+
+	/* Catalog */
+	.section-header {
+		margin-top: 8rem;
+		margin-bottom: 4rem;
+		text-align: center;
+	}
+
+	.catalog-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 2rem;
+	}
+
+	.book-card {
+		padding: 2rem;
+		background: var(--bg-accent);
+		border-radius: 8px;
+		border: 1px solid var(--glass-border);
+		transition: all 0.3s ease;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.book-card:hover {
+		transform: translateY(-5px);
+		border-color: var(--accent);
+		background: rgba(255,255,255,0.02);
+	}
+
+	.book-cover {
+		aspect-ratio: 2/3;
+		background: linear-gradient(45deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.05) 100%);
+		border-radius: 4px;
+		position: relative;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.status-badge {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		font-size: 0.7rem;
+		padding: 0.4rem 0.8rem;
+		background: var(--accent);
+		color: var(--bg-color);
+		border-radius: 2px;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		font-weight: 600;
+	}
+
+	.book-info h3 {
+		font-size: 1.4rem;
+		margin-bottom: 0.5rem;
+		color: var(--accent);
+	}
+
+	.author {
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--text-muted);
+		margin-bottom: 1rem;
+	}
+
+	.desc {
+		font-size: 0.95rem;
+		color: var(--text-muted);
+		line-height: 1.5;
+	}
+
+	/* Footer */
+	footer {
+		margin-top: 8rem;
+		padding-top: 4rem;
+		border-top: 1px solid var(--glass-border);
+	}
+
+	.footer-content {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: var(--text-muted);
+		font-size: 0.9rem;
+	}
+
+	@media (max-width: 768px) {
+		.mission-grid {
+			grid-template-columns: 1fr;
+		}
+		
+		.hero {
+			padding: 4rem 1rem;
+		}
+		
+		.cta-group {
+			flex-direction: column;
+		}
+	}
+</style>
