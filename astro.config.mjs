@@ -6,3 +6,4 @@ export default defineConfig({
   site: 'https://www.rescriptaeditorial.cl',
   output: 'static',
 });
+// Trigger deploy
