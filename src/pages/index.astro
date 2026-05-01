@@ -4,7 +4,9 @@ import { Image } from 'astro:assets';
 import logoImg from '../assets/logo-original.png';
 import { getCollection } from 'astro:content';
 
-const libros = await getCollection('libros');
+const libros = await getCollection('libros', ({ data }) => {
+	return data.isFeatured === true;
+});
 ---
 
 <Layout title="Rescate de Obras Fundamentales">
