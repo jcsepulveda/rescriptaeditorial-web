@@ -1,10 +1,10 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { Image } from 'astro:assets';
-import logoImg from '../assets/logo-original.png';
-import { getCollection } from 'astro:content';
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import logoImg from "../assets/logo-original.png";
+import { getCollection } from "astro:content";
 
-const libros = await getCollection('libros', ({ data }) => {
+const libros = await getCollection("libros", ({ data }) => {
 	return data.isFeatured === true;
 });
 ---
@@ -14,7 +14,11 @@ const libros = await getCollection('libros', ({ data }) => {
 		<!-- Navegación Minimalista -->
 		<nav class="container">
 			<div class="logo">
-				<Image src={logoImg} alt="Rescripta Editores" class="logo-icon" />
+				<Image
+					src={logoImg}
+					alt="Rescripta Editores"
+					class="logo-icon"
+				/>
 				<div class="brand-text">
 					<span class="brand-main">Rescripta</span>
 					<span class="brand-sub">Editorial</span>
@@ -30,13 +34,22 @@ const libros = await getCollection('libros', ({ data }) => {
 		<!-- Hero Section -->
 		<section class="hero container animate-fade-in">
 			<div class="hero-content">
-				<h1>Recuperación de obras de valor para la historia y la cultura de <span class="text-gradient">Chile</span>.</h1>
+				<h1>
+					Recuperación de obras de valor para la historia y la cultura
+					de <span class="text-gradient">Chile</span>.
+				</h1>
 				<p class="hero-subtitle">
-					Preservación del patrimonio bibliográfico nacional a través de ediciones digitales modernas que respetan la integridad de cada obra.
+					Preservación del patrimonio bibliográfico nacional a través
+					de ediciones digitales modernas que respetan la integridad
+					de cada obra.
 				</p>
 				<div class="cta-group">
-					<a href="#proposito" class="btn btn-primary">Nuestra Misión</a>
-					<a href="#catalogo" class="btn btn-outline">Próximos Títulos</a>
+					<a href="#proposito" class="btn btn-primary"
+						>Nuestra Misión</a
+					>
+					<a href="#catalogo" class="btn btn-outline"
+						>Próximos Títulos</a
+					>
 				</div>
 			</div>
 		</section>
@@ -47,10 +60,16 @@ const libros = await getCollection('libros', ({ data }) => {
 				<div class="mission-text">
 					<h2>Una labor de preservación</h2>
 					<p>
-						Nuestra vocación es el rescate. Nos dedicamos a recuperar obras de relevancia histórica y cultural que han quedado fuera de los circuitos comerciales tradicionales, asegurando su permanencia y accesibilidad para el lector contemporáneo.
+						Nuestra vocación es el rescate. Nos dedicamos a
+						recuperar obras de relevancia histórica y cultural que
+						han quedado fuera de los circuitos comerciales
+						tradicionales, asegurando su permanencia y accesibilidad
+						para el lector contemporáneo.
 					</p>
 					<p>
-						Cada volumen es tratado con rigor editorial absoluto, enfocándonos en la fidelidad al texto original y en la creación de una experiencia de lectura digital moderna.
+						Cada volumen es tratado con rigor editorial absoluto,
+						enfocándonos en la fidelidad al texto original y en la
+						creación de una experiencia de lectura digital moderna.
 					</p>
 				</div>
 				<div class="mission-focus">
@@ -58,14 +77,22 @@ const libros = await getCollection('libros', ({ data }) => {
 						<span class="focus-icon">🇨🇱</span>
 						<div>
 							<h3>Patrimonio Nacional</h3>
-							<p>Centramos nuestro esfuerzo en obras pilares de la identidad y la memoria de Chile.</p>
+							<p>
+								Centramos nuestro esfuerzo en obras pilares de
+								la identidad y la memoria de Chile.
+							</p>
 						</div>
 					</div>
 					<div class="focus-item">
 						<span class="focus-icon">✦</span>
 						<div>
 							<h3>Rigor Editorial</h3>
-							<p>Respetamos la integridad de la obra original, trasladándola con rigor a estándares modernos que aseguran su vigencia y legibilidad en múltiples soportes, más allá del formato físico.</p>
+							<p>
+								Respetamos la integridad de la obra original,
+								trasladándola con rigor a estándares modernos
+								que aseguran su vigencia y legibilidad en
+								múltiples soportes, más allá del formato físico.
+							</p>
 						</div>
 					</div>
 				</div>
@@ -79,22 +106,32 @@ const libros = await getCollection('libros', ({ data }) => {
 				<p>Próximos lanzamientos en preparación.</p>
 			</div>
 			<div class="catalog-grid">
-				{libros.map(libro => (
-					<div class="book-card">
-						<div class="book-cover">
-							{libro.data.status === 'proximamente' && <span class="status-badge">Próximamente</span>}
+				{
+					libros.map((libro) => (
+						<div class="book-card">
+							<div class="book-cover">
+								{libro.data.status === "proximamente" && (
+									<span class="status-badge">
+										Próximamente
+									</span>
+								)}
+							</div>
+							<div class="book-info">
+								<h3>{libro.data.title}</h3>
+								<p class="author">{libro.data.author}</p>
+								<p class="desc">{libro.data.description}</p>
+							</div>
 						</div>
-						<div class="book-info">
-							<h3>{libro.data.title}</h3>
-							<p class="author">{libro.data.author}</p>
-							<p class="desc">{libro.data.description}</p>
-						</div>
-					</div>
-				))}
-				
-				{libros.length === 0 && (
-					<p class="muted">Preparando los primeros títulos del catálogo...</p>
-				)}
+					))
+				}
+
+				{
+					libros.length === 0 && (
+						<p class="muted">
+							Preparando los primeros títulos del catálogo...
+						</p>
+					)
+				}
 			</div>
 		</section>
 
@@ -102,11 +139,14 @@ const libros = await getCollection('libros', ({ data }) => {
 		<footer class="container">
 			<div class="footer-content">
 				<div class="footer-brand">
-					<h3>Rescripta</h3>
+					<h3>Rescripta Editorial</h3>
 					<p>Santiago, Chile</p>
 				</div>
 				<div class="footer-legal">
-					<p>&copy; {new Date().getFullYear()} Rescripta Editores. Todos los derechos reservados.</p>
+					<p>
+						&copy; {new Date().getFullYear()} Rescripta Editorial. Todos
+						los derechos reservados.
+					</p>
 				</div>
 			</div>
 		</footer>
@@ -135,7 +175,7 @@ const libros = await getCollection('libros', ({ data }) => {
 		display: flex;
 		flex-direction: column;
 		line-height: 1;
-		font-family: 'Cormorant Garamond', serif;
+		font-family: "Cormorant Garamond", serif;
 		text-transform: uppercase;
 	}
 
@@ -160,7 +200,8 @@ const libros = await getCollection('libros', ({ data }) => {
 		width: auto;
 		/* Paso 1: Invertir para tener logo blanco sobre fondo negro */
 		/* Paso 2: Aplicar filtros para llegar al bronce #c5a059 */
-		filter: invert(1) sepia(1) saturate(2) hue-rotate(350deg) brightness(0.8) contrast(1.2);
+		filter: invert(1) sepia(1) saturate(2) hue-rotate(350deg)
+			brightness(0.8) contrast(1.2);
 		/* Paso 3: Hacer que el fondo negro de la imagen sea transparente */
 		mix-blend-mode: screen;
 	}
@@ -318,12 +359,16 @@ const libros = await getCollection('libros', ({ data }) => {
 	.book-card:hover {
 		transform: translateY(-5px);
 		border-color: var(--accent);
-		background: rgba(255,255,255,0.02);
+		background: rgba(255, 255, 255, 0.02);
 	}
 
 	.book-cover {
 		aspect-ratio: 2/3;
-		background: linear-gradient(45deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.05) 100%);
+		background: linear-gradient(
+			45deg,
+			rgba(255, 255, 255, 0.02) 0%,
+			rgba(255, 255, 255, 0.05) 100%
+		);
 		border-radius: 4px;
 		position: relative;
 		overflow: hidden;
@@ -385,11 +430,11 @@ const libros = await getCollection('libros', ({ data }) => {
 		.mission-grid {
 			grid-template-columns: 1fr;
 		}
-		
+
 		.hero {
 			padding: 4rem 1rem;
 		}
-		
+
 		.cta-group {
 			flex-direction: column;
 		}
