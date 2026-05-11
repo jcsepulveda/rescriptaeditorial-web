@@ -3,7 +3,7 @@ title: "Obra Fundamental de Chile"
 author: "Autor Destacado"
 description: "Una breve descripción de esta obra rescatada del patrimonio nacional, ahora disponible en edición digital moderna."
 status: "proximamente"
-isFeatured: true
+isFeatured: false
 ---
 
 # Sobre esta edición
